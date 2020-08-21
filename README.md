@@ -49,6 +49,6 @@ The user should be able to modify a saved recipe changing instructions, ingredie
 
 When the chef is out of imagination, by shaking the device, a random recipe should be shown.
 
-#### Search Allergies
+#### Set Allergies
 
 The user should be able to customize the application by setting its own allergies. In this way recipe containing those ingredients will be automatically avoided in the searches.
