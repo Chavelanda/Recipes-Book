@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Text, View, StyleSheet } from 'react-native';
+import {StyleSheet } from 'react-native';
 import Constants from 'expo-constants';
 
 import { createStackNavigator } from '@react-navigation/stack';
@@ -11,9 +11,15 @@ const HomeStack = createStackNavigator();
 export default class HomeStackScreen extends React.Component {
   render () {
     return (
-      <HomeStack.Navigator>
-        <HomeStack.Screen name='Home' component={HomeScreen} />
+      <HomeStack.Navigator initialRouteName='Home' screenOptions={{headerTitleAlign: 'center', headerStyle: styles.headerStyle,}}>
+        <HomeStack.Screen name='Home' component={HomeScreen} options={{headerTitle: 'HOME'}}/>
       </HomeStack.Navigator>
     )
   }
 }
+
+const styles=StyleSheet.create({
+  headerStyle: {
+    backgroundColor: 'crimson',
+  }
+})

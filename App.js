@@ -8,8 +8,8 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Icon } from 'react-native-elements';
 
 import HomeStackScreen from './screens/HomeStackScreen';
-import SearchScreen from './screens/SearchScreen';
-import OptionsScreen from './screens/OptionsScreen';
+import SearchStackScreen from './screens/SearchStackScreen';
+import OptionsStackScreen from './screens/OptionsStackScreen';
 
 const Tab = createBottomTabNavigator();
 
@@ -43,7 +43,7 @@ export default class App extends React.Component {
           />
           <Tab.Screen
           name="SearchStack"
-          component={SearchScreen}
+          component={SearchStackScreen}
           options={({ route }) => ({
             tabBarIcon: ({ focused, color, size }) => {
               return (
@@ -61,7 +61,7 @@ export default class App extends React.Component {
           />
           <Tab.Screen
           name="OptionsStack"
-          component={OptionsScreen}
+          component={OptionsStackScreen}
           options={({ route }) => ({
             tabBarIcon: ({ focused, color, size }) => {
               return (
