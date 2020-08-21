@@ -11,7 +11,7 @@ const HomeStack = createStackNavigator();
 export default class HomeStackScreen extends React.Component {
   render () {
     return (
-      <HomeStack.Navigator initialRouteName='Home' screenOptions={{headerTitleAlign: 'center', headerStyle: styles.headerStyle,}}>
+      <HomeStack.Navigator initialRouteName='Home' screenOptions={{headerTitleAlign: 'center', headerStyle: styles.headerStyle, headerTitleStyle: styles.headerTitleStyle}}>
         <HomeStack.Screen name='Home' component={HomeScreen} options={{headerTitle: 'HOME'}}/>
       </HomeStack.Navigator>
     )
@@ -21,5 +21,8 @@ export default class HomeStackScreen extends React.Component {
 const styles=StyleSheet.create({
   headerStyle: {
     backgroundColor: 'crimson',
+  },
+  headerTitleStyle: {
+    color: 'white'
   }
 })
