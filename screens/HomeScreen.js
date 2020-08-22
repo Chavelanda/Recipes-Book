@@ -4,18 +4,33 @@ import Constants from 'expo-constants';
 import {Button} from 'react-native-elements'
 
 import SortButtonGroup from '../components/SortButtonGroup'
+import Recipe from '../components/Recipe'
 
-const HOME_COLOR='crimson'
+const HOME_COLOR= 'crimson'
 
 export default class HomeScreen extends React.Component {
+
+  buttons = [{name: 'NAME', up: true,}, {name: 'TIME', up: true}]
+
+  onSortButtonPress = (index) => {
+    console.log('Sort button pressed ' + this.buttons[index].name + ' pressed')
+    console.log('Up is: ' + this.buttons[index].up)
+  }
+
   render () {
     return (
       <View style={styles.container} >
         <View style={styles.sortButtonBox}>
-          <SortButtonGroup buttons={[{name: 'NAME', up: true,}, {name: 'TIME', up: true}]} color={HOME_COLOR}/>
+          <SortButtonGroup buttons={this.buttons} color={HOME_COLOR} onSortButtonPress={this.onSortButtonPress}/>
         </View>
         <View style={styles.recipesBox}>
-          <Text>Home Screen</Text>
+          <Recipe
+            color={HOME_COLOR}
+            time={12}
+            title='Pasta al Pesto'
+            uri='https://www.ricettealvolo.it/wp-content/uploads/2016/10/spaghetti-al-pesto.jpg'
+            saved={true}
+          />
         </View>
         <View style={styles.addButtonBox}>
           <Button title='ADD NEW' type='outline' buttonStyle={styles.buttonContainer} titleStyle={styles.buttonContainer} onPress={() => console.log('add new button pressed')} raised/>
