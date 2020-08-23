@@ -22,7 +22,7 @@ export default class App extends React.Component {
   render() {
     return (
       <NavigationContainer>
-        <Tab.Navigator initialRouteName="HomeStack" tabBarOptions={{inactiveTintColor: 'gray',}}>
+        <Tab.Navigator initialRouteName="HomeStack" tabBarOptions={{inactiveTintColor: 'gray', keyboardHidesTabBar: true}}>
           <Tab.Screen
           name="HomeStack"
           component={HomeStackScreen}

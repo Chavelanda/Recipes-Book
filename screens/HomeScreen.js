@@ -1,10 +1,11 @@
 import * as React from 'react';
 import { Text, View, StyleSheet } from 'react-native';
-import Constants from 'expo-constants';
 import {Button} from 'react-native-elements'
 
 import SortButtonGroup from '../components/SortButtonGroup'
 import Recipe from '../components/Recipe'
+
+import AddNewRecipeScreen from './AddNewRecipeScreen'
 
 const HOME_COLOR= 'crimson'
 
@@ -15,6 +16,10 @@ export default class HomeScreen extends React.Component {
   onSortButtonPress = (index) => {
     console.log('Sort button pressed ' + this.buttons[index].name + ' pressed')
     console.log('Up is: ' + this.buttons[index].up)
+  }
+
+  onAddNewRecipeButtonPress = () => {
+    this.props.navigation.navigate('AddNewRecipe')
   }
 
   render () {
@@ -33,7 +38,7 @@ export default class HomeScreen extends React.Component {
           />
         </View>
         <View style={styles.addButtonBox}>
-          <Button title='ADD NEW' type='outline' buttonStyle={styles.buttonContainer} titleStyle={styles.buttonContainer} onPress={() => console.log('add new button pressed')} raised/>
+          <Button title='ADD NEW' type='outline' buttonStyle={styles.buttonContainer} titleStyle={styles.buttonContainer} onPress={this.onAddNewRecipeButtonPress} raised/>
         </View>
       </View>
     )
