@@ -4,6 +4,7 @@ import {Button} from 'react-native-elements'
 import { connect } from 'react-redux'
 
 import SortButtonGroup from '../components/SortButtonGroup'
+import {compareRecipeByName, compareRecipeByTime} from '../utils/recipeUtils'
 import Recipe from '../components/Recipe'
 import AddMainInfoScreen from './AddMainInfoScreen'
 
@@ -11,11 +12,40 @@ const HOME_COLOR= 'crimson'
 
 class HomeScreen extends React.Component {
 
+  state={
+    index: 0,
+    up: true,
+  }
+
   buttons = [{name: 'NAME', up: true,}, {name: 'TIME', up: true}]
 
   onSortButtonPress = (index) => {
-    console.log('Sort button pressed ' + this.buttons[index].name + ' pressed')
-    console.log('Up is: ' + this.buttons[index].up)
+    this.setState({index: index, up: this.buttons[index].up})
+  }
+
+  sortRecipes = (recipes) => {
+
+    console.log(recipes)
+
+    let sortedRecipes = [...recipes]
+
+    if (this.state.index === 0){
+      sortedRecipes.sort(compareRecipeByName)
+
+    } else {
+      sortedRecipes.sort(compareRecipeByTime)
+    }
+
+    console.log(sortedRecipes)
+
+    if (this.state.up){
+      sortedRecipes.reverse()
+    }
+
+    console.log(sortedRecipes)
+
+    return sortedRecipes
+
   }
 
   renderItem = ({item}) => {
@@ -44,7 +74,7 @@ class HomeScreen extends React.Component {
         <View style={styles.recipesBox}>
           {this.props.savedRecipes[0] ? (
             <FlatList
-              data={this.props.savedRecipes}
+              data={this.sortRecipes(this.props.savedRecipes)}
               renderItem={this.renderItem}
               keyExtractor={item => item.title}
             />) :
