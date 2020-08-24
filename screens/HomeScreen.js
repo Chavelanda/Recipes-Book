@@ -1,15 +1,15 @@
 import * as React from 'react';
-import { Text, View, StyleSheet } from 'react-native';
+import { View, StyleSheet, FlatList, Text } from 'react-native';
 import {Button} from 'react-native-elements'
+import { connect } from 'react-redux'
 
 import SortButtonGroup from '../components/SortButtonGroup'
 import Recipe from '../components/Recipe'
-
 import AddMainInfoScreen from './AddMainInfoScreen'
 
 const HOME_COLOR= 'crimson'
 
-export default class HomeScreen extends React.Component {
+class HomeScreen extends React.Component {
 
   buttons = [{name: 'NAME', up: true,}, {name: 'TIME', up: true}]
 
@@ -17,6 +17,19 @@ export default class HomeScreen extends React.Component {
     console.log('Sort button pressed ' + this.buttons[index].name + ' pressed')
     console.log('Up is: ' + this.buttons[index].up)
   }
+
+  renderItem = ({item}) => {
+
+    return (
+    <Recipe
+      color={HOME_COLOR}
+      time={+item.time}
+      title={item.title}
+      uri={item.image.uri}
+      saved={true}
+    />)
+  }
+
 
   onAddNewRecipeButtonPress = () => {
     this.props.navigation.navigate('AddMainInfo', {color: HOME_COLOR})
@@ -29,13 +42,14 @@ export default class HomeScreen extends React.Component {
           <SortButtonGroup buttons={this.buttons} color={HOME_COLOR} onSortButtonPress={this.onSortButtonPress}/>
         </View>
         <View style={styles.recipesBox}>
-          <Recipe
-            color={HOME_COLOR}
-            time={12}
-            title='Pasta al Pesto'
-            uri='https://www.ricettealvolo.it/wp-content/uploads/2016/10/spaghetti-al-pesto.jpg'
-            saved={true}
-          />
+          {this.props.savedRecipes[0] ? (
+            <FlatList
+              data={this.props.savedRecipes}
+              renderItem={this.renderItem}
+              keyExtractor={item => item.title}
+            />) :
+            (<Text style={styles.noRecipesText}>You don't have any saved recipe yet!</Text>)
+          }
         </View>
         <View style={styles.addButtonBox}>
           <Button title='ADD NEW' type='outline' buttonStyle={styles.buttonContainer} titleStyle={styles.buttonContainer} onPress={this.onAddNewRecipeButtonPress} raised/>
@@ -58,6 +72,12 @@ const styles = StyleSheet.create({
     flex: 6,
     backgroundColor: 'white',
   },
+  noRecipesText: {
+    color: HOME_COLOR,
+    fontSize: 30,
+    textAlign: 'center',
+    padding: 30,
+  },
   addButtonBox: {
     flex: 1,
     justifyContent: 'center',
@@ -69,3 +89,9 @@ const styles = StyleSheet.create({
     color: HOME_COLOR,
   }
 });
+
+mapStateToProps = ({savedRecipes}) => ({
+  savedRecipes: savedRecipes
+})
+
+export default connect(mapStateToProps)(HomeScreen)

@@ -4,15 +4,16 @@ import {Button} from 'react-native-elements'
 import * as Permissions from 'expo-permissions';
 import * as ImagePicker from 'expo-image-picker';
 
+import cameraChoice from '../components/cameraChoice'
+import camera from '../assets/camera.png'
+
 export default class AddMainInfoScreen extends React.Component {
 
   state = {
     title: '',
     time: '',
     servings: '',
-    image: {
-      uri: 'https://www.creativefabrica.com/wp-content/uploads/2019/05/Camera-icon-by-demolabid-580x386.jpg'
-    },
+    image: camera,
     isFormValid: false,
   }
 
@@ -22,7 +23,7 @@ export default class AddMainInfoScreen extends React.Component {
     }
   }
 
-  getImagePickerAsync = async () => {
+  getCameraAsync = async () => {
 
     const { status } = await ImagePicker.requestCameraPermissionsAsync();
     if (status !== 'granted') {
@@ -30,6 +31,20 @@ export default class AddMainInfoScreen extends React.Component {
       return;
     }
     const image = await ImagePicker.launchCameraAsync({ allowsEditing: true, aspect: [1,1] });
+
+    if (!image.cancelled){
+      this.setState({image})
+    }
+  };
+
+  getCameraRollAsync = async () => {
+
+    const { status } = await ImagePicker.requestCameraRollPermissionsAsync();
+    if (status !== 'granted') {
+      console.error('Permission not granted');
+      return;
+    }
+    const image = await ImagePicker.launchImageLibraryAsync({ allowsEditing: true, aspect: [1,1] });
 
     if (!image.cancelled){
       this.setState({image})
@@ -68,10 +83,10 @@ export default class AddMainInfoScreen extends React.Component {
   render() {
     return (
       <KeyboardAvoidingView style={styles.container} behavior='height'>
-        <TouchableHighlight style={styles.touchableHighlight} onPress={() => this.getImagePickerAsync()}>
+        <TouchableHighlight style={styles.touchableHighlight} onPress={() => cameraChoice(this.getCameraAsync, this.getCameraRollAsync)}>
           <Image
             style={[styles.image, {borderColor: this.props.route.params?.color}]}
-            source={{uri: this.state.image.uri}}
+            source={this.state.image}
           />
         </TouchableHighlight>
         <TextInput

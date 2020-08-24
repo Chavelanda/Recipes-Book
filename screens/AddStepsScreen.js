@@ -1,10 +1,12 @@
 import React from 'react'
 import { Text, View, KeyboardAvoidingView, StyleSheet, FlatList, TextInput } from 'react-native';
 import {Button} from 'react-native-elements'
+import { connect } from 'react-redux'
+import {addNewRecipe} from '../redux/actions'
 
 import Step from '../components/Step'
 
-export default class AddStepsScreen extends React.Component {
+class AddStepsScreen extends React.Component {
 
   state = {
     steps: [{id: 0, description: ''}],
@@ -49,8 +51,11 @@ export default class AddStepsScreen extends React.Component {
     return (step.description !== '')
   }
 
-  onNextButtonPressed = () => {
-    console.log('Next Button pressed')
+  onSubmitButtonPressed = () => {
+    const {color, ...parameters} = this.props.route.params
+    const steps = this.state.steps
+    this.props.addNewRecipe({...parameters, steps})
+    this.props.navigation.navigate('Home')
   }
 
   render() {
@@ -85,7 +90,7 @@ export default class AddStepsScreen extends React.Component {
             type='outline'
             buttonStyle={{borderColor: this.props.route.params?.color}}
             titleStyle={{color: this.props.route.params?.color}}
-            onPress={this.onNextButtonPressed}
+            onPress={this.onSubmitButtonPressed}
             disabled={!this.state.isFormValid}
             raised
           />
@@ -113,4 +118,7 @@ const styles=StyleSheet.create({
   nextButton: {
     height: 50,
   }
-})
+});
+
+
+export default connect(null, {addNewRecipe})(AddStepsScreen)
