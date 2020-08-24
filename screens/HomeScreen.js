@@ -5,7 +5,7 @@ import {Button} from 'react-native-elements'
 import SortButtonGroup from '../components/SortButtonGroup'
 import Recipe from '../components/Recipe'
 
-import AddNewRecipeScreen from './AddNewRecipeScreen'
+import AddMainInfoScreen from './AddMainInfoScreen'
 
 const HOME_COLOR= 'crimson'
 
@@ -19,7 +19,7 @@ export default class HomeScreen extends React.Component {
   }
 
   onAddNewRecipeButtonPress = () => {
-    this.props.navigation.navigate('AddNewRecipe')
+    this.props.navigation.navigate('AddMainInfo', {color: HOME_COLOR})
   }
 
   render () {
