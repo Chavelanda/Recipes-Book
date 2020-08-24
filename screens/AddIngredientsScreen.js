@@ -5,7 +5,6 @@ import {Button} from 'react-native-elements'
 import Ingredient from '../components/Ingredient'
 
 export default class AddIngredientsScreen extends React.Component {
-
   state = {
     ingredients: [{id: 0, amount: '', unit: '', ingredient: ''}],
     isFormValid: false
