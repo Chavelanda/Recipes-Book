@@ -9,13 +9,21 @@ import camera from '../assets/camera.png'
 
 export default class AddMainInfoScreen extends React.Component {
 
-  state = {
-    title: '',
-    time: '',
-    servings: '',
-    image: camera,
-    isFormValid: false,
+  constructor(props) {
+    super(props)
+
+    const {image, title, time, servings} = this.props.route.params
+
+    this.state = {
+      title: title || '',
+      time: time || '',
+      servings: servings || '',
+      image: image || camera,
+      isFormValid: (title && time && servings),
+    }
   }
+
+
 
   componentDidUpdate(prevProps, prevState) {
     if (prevState.title !== this.state.title || prevState.time !== this.state.time || prevState.servings != this.state.servings || prevState.image !== this.state.image){
@@ -77,7 +85,7 @@ export default class AddMainInfoScreen extends React.Component {
 
   onNextButtonPressed = () => {
     let {isFormValid, ...parameters} = this.state
-    this.props.navigation.navigate('AddIngredients', {...parameters, color: this.props.route.params?.color})
+    this.props.navigation.navigate('AddIngredients', {...this.props.route.params, ...parameters,})
   }
 
   render() {

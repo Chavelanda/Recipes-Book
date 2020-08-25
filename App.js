@@ -5,7 +5,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Icon } from 'react-native-elements';
 
-import {Provider} from 'react-redux'
+import {Provider, connect} from 'react-redux'
 import {store, persistor} from './redux/store'
 import { PersistGate } from 'redux-persist/integration/react'
 
@@ -15,78 +15,86 @@ import OptionsStackScreen from './screens/OptionsStackScreen';
 
 const Tab = createBottomTabNavigator();
 
-const HOME_COLOR = 'crimson'
-const SEARCH_COLOR = 'coral'
-const SETTINGS_COLOR = 'teal'
+const Tabs = (props) =>  {
+
+  const HOME_COLOR = 'crimson'
+  const SEARCH_COLOR = 'coral'
+  const SETTINGS_COLOR = 'teal'
+
+  return (
+          <NavigationContainer>
+            <Tab.Navigator initialRouteName="HomeStack" tabBarOptions={{inactiveTintColor: 'gray', keyboardHidesTabBar: true}}>
+              <Tab.Screen
+              name="HomeStack"
+              component={HomeStackScreen}
+              options={({ route }) => ({
+                tabBarIcon: ({ focused, color }) => {
+                  return (
+                    <Icon name="ios-restaurant" type="ionicon" color={`${focused ? HOME_COLOR : color}`} size={30} />
+                  );
+                },
+                tabBarLabel: ({ focused, color }) => {
+                  return (
+                    <Text style={[styles.tabBarLabel, { color: `${focused ? HOME_COLOR : color}` }]}>
+                      Home
+                    </Text>
+                  );
+                },
+              })}
+              />
+              <Tab.Screen
+              name="SearchStack"
+              component={SearchStackScreen}
+              options={({ route }) => ({
+                tabBarIcon: ({ focused, color, size }) => {
+                  return (
+                    <Icon name="ios-search" type="ionicon" color={`${focused ? SEARCH_COLOR : color}`} size={30} />
+                  );
+                },
+                tabBarLabel: ({ focused, color }) => {
+                  return (
+                    <Text style={[styles.tabBarLabel, { color: `${focused ? SEARCH_COLOR : color}` }]}>
+                      Search
+                    </Text>
+                  );
+                },
+              })}
+              />
+              <Tab.Screen
+              name="OptionsStack"
+              component={OptionsStackScreen}
+              options={({ route }) => ({
+                tabBarIcon: ({ focused, color, size }) => {
+                  return (
+                    <Icon name="ios-list" type="ionicon" color={`${focused ? SETTINGS_COLOR : color}`} size={30} />
+                  );
+                },
+                tabBarLabel: ({ focused, color }) => {
+                  return (
+                    <Text style={[styles.tabBarLabel, { color: `${focused ? SETTINGS_COLOR : color}` }]}>
+                      Options
+                    </Text>
+                  );
+                },
+              })}
+              />
+            </Tab.Navigator>
+          </NavigationContainer>
+  );
+}
 
 export default class App extends React.Component {
 
   render() {
-    return (
+    return(
       <Provider store={store}>
-          <PersistGate loading={null} persistor={persistor}>
-            <NavigationContainer>
-              <Tab.Navigator initialRouteName="HomeStack" tabBarOptions={{inactiveTintColor: 'gray', keyboardHidesTabBar: true}}>
-                <Tab.Screen
-                name="HomeStack"
-                component={HomeStackScreen}
-                options={({ route }) => ({
-                  tabBarIcon: ({ focused, color }) => {
-                    return (
-                      <Icon name="ios-restaurant" type="ionicon" color={`${focused ? HOME_COLOR : color}`} size={30} />
-                    );
-                  },
-                  tabBarLabel: ({ focused, color }) => {
-                    return (
-                      <Text style={[styles.tabBarLabel, { color: `${focused ? HOME_COLOR : color}` }]}>
-                        Home
-                      </Text>
-                    );
-                  },
-                })}
-                />
-                <Tab.Screen
-                name="SearchStack"
-                component={SearchStackScreen}
-                options={({ route }) => ({
-                  tabBarIcon: ({ focused, color, size }) => {
-                    return (
-                      <Icon name="ios-search" type="ionicon" color={`${focused ? SEARCH_COLOR : color}`} size={30} />
-                    );
-                  },
-                  tabBarLabel: ({ focused, color }) => {
-                    return (
-                      <Text style={[styles.tabBarLabel, { color: `${focused ? SEARCH_COLOR : color}` }]}>
-                        Search
-                      </Text>
-                    );
-                  },
-                })}
-                />
-                <Tab.Screen
-                name="OptionsStack"
-                component={OptionsStackScreen}
-                options={({ route }) => ({
-                  tabBarIcon: ({ focused, color, size }) => {
-                    return (
-                      <Icon name="ios-list" type="ionicon" color={`${focused ? SETTINGS_COLOR : color}`} size={30} />
-                    );
-                  },
-                  tabBarLabel: ({ focused, color }) => {
-                    return (
-                      <Text style={[styles.tabBarLabel, { color: `${focused ? SETTINGS_COLOR : color}` }]}>
-                        Options
-                      </Text>
-                    );
-                  },
-                })}
-                />
-              </Tab.Navigator>
-            </NavigationContainer>
+        <PersistGate loading={null} persistor={persistor}>
+          <Tabs />
         </PersistGate>
       </Provider>
-    );
+    )
   }
+
 }
 
 const styles = StyleSheet.create({

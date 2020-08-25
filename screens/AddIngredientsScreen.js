@@ -1,18 +1,30 @@
 import React from 'react'
 import { Text, View, KeyboardAvoidingView, StyleSheet, FlatList, TextInput } from 'react-native';
 import {Button} from 'react-native-elements'
+import { CommonActions } from '@react-navigation/native';
 
-import Ingredient from '../components/Ingredient'
+import IngredientInput from '../components/IngredientInput'
 
 export default class AddIngredientsScreen extends React.Component {
-  state = {
-    ingredients: [{id: 0, amount: '', unit: '', ingredient: ''}],
-    isFormValid: false
+
+  constructor(props){
+      super(props)
+
+      const {ingredients} = this.props.route.params
+
+      this.state = {
+        ingredients: ingredients || [{id: 0, amount: '', unit: '', ingredient: ''}],
+        isFormValid: ingredients ? this.areIngredientsValid(ingredients) : false,
+      }
   }
 
+
+
   componentDidUpdate(prevProps, prevState) {
+
     if (prevState.ingredients != this.state.ingredients){
       this.validateForm()
+      this.props.navigation.dispatch(CommonActions.setParams({...this.props.route.params, ingredients: this.state.ingredients}))
     }
   }
 
@@ -35,7 +47,7 @@ export default class AddIngredientsScreen extends React.Component {
   }
 
   renderItem = ({item, index}) => (
-    <Ingredient ingredient={item} onAmountChange={this.onAmountChange} onUnitChange={this.onUnitChange} onIngredientChange={this.onIngredientChange} color={this.props.route.params?.color} index={index}  />
+    <IngredientInput ingredient={item} onAmountChange={this.onAmountChange} onUnitChange={this.onUnitChange} onIngredientChange={this.onIngredientChange} color={this.props.route.params?.color} index={index}  />
   )
 
   onAddIngredient = () => {
@@ -51,17 +63,22 @@ export default class AddIngredientsScreen extends React.Component {
   }
 
   validateForm = () => {
-    const valid = this.state.ingredients.map(this.isIngredientValid).reduce((validityUntilNow, validityIngredient) => validityUntilNow && validityIngredient, true)
+    const valid = this.areIngredientsValid()
     this.setState({isFormValid: valid})
   }
 
+  areIngredientsValid = (ingredients = this.state.ingredients) => {
+    return ingredients.map(this.isIngredientValid).reduce((validityUntilNow, validityIngredient) => validityUntilNow && validityIngredient, true)
+  }
+
   isIngredientValid = (ingredient) => {
-    return (+ingredient.amount > 0 && ingredient.ingredient !== '')
+    return (+ingredient.amount >= 0 && ingredient.ingredient !== '')
   }
 
   onNextButtonPressed = () => {
-    let {isFormValid, ...parameters} = this.state
-    this.props.navigation.navigate('AddSteps', {...parameters, ...this.props.route.params})
+    const {isFormValid, ingredients} = this.state
+    const qbIngredients = [...ingredients].map((ingredient) => ({...ingredient, amount: +ingredient.amount > 0 ? ingredient.amount : 'q.b.'}))
+    this.props.navigation.navigate('AddSteps', {...this.props.route.params, ingredients: qbIngredients,})
   }
 
   render() {

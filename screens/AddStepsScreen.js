@@ -2,20 +2,28 @@ import React from 'react'
 import { Text, View, KeyboardAvoidingView, StyleSheet, FlatList, TextInput } from 'react-native';
 import {Button} from 'react-native-elements'
 import { connect } from 'react-redux'
-import {addNewRecipe} from '../redux/actions'
+import {addNewRecipe, changeThemeColor} from '../redux/actions'
+import { CommonActions } from '@react-navigation/native';
 
-import Step from '../components/Step'
+import StepInput from '../components/StepInput'
 
 class AddStepsScreen extends React.Component {
 
-  state = {
-    steps: [{id: 0, description: ''}],
-    isFormValid: false
+  constructor(props) {
+    super(props)
+
+    const {steps} = this.props.route.params
+
+    this.state = {
+      steps: steps || [{id: 0, description: ''}],
+      isFormValid: steps ? this.areStepsValid(steps) : false
+    }
   }
 
   componentDidUpdate(prevProps, prevState) {
     if (prevState.steps != this.state.steps){
       this.validateForm()
+      this.props.navigation.dispatch(CommonActions.setParams({...this.props.route.params, steps: this.state.steps}))
     }
   }
 
@@ -26,12 +34,12 @@ class AddStepsScreen extends React.Component {
   }
 
   renderItem = ({item, index}) => (
-    <Step step={item} onStepChange={this.onStepChange} color={this.props.route.params?.color} index={index}  />
+    <StepInput step={item} onStepChange={this.onStepChange} color={this.props.route.params?.color} index={index}  />
   )
 
   onAddStep = () => {
     this.setState({steps: [...this.state.steps, {id: this.state.steps.length, description: ''}]})
-    console.log(this.props.route.params)
+
   }
 
   onRemoveStep = () => {
@@ -43,8 +51,12 @@ class AddStepsScreen extends React.Component {
   }
 
   validateForm = () => {
-    const valid = this.state.steps.map(this.isStepValid).reduce((validityUntilNow, validityIngredient) => validityUntilNow && validityIngredient, true)
+    const valid = this.areStepsValid()
     this.setState({isFormValid: valid})
+  }
+
+  areStepsValid = (steps = this.state.steps) => {
+    return steps.map(this.isStepValid).reduce((validityUntilNow, validityIngredient) => validityUntilNow && validityIngredient, true)
   }
 
   isStepValid = (step) => {
@@ -54,7 +66,9 @@ class AddStepsScreen extends React.Component {
   onSubmitButtonPressed = () => {
     const {color, ...parameters} = this.props.route.params
     const steps = this.state.steps
-    this.props.addNewRecipe({...parameters, steps})
+    const id = this.props.idRecipe
+    this.props.changeThemeColor({index: 0, color: 'crimson'})
+    this.props.addNewRecipe({id: id, created: true, ...parameters, steps,})
     this.props.navigation.navigate('Home')
   }
 
@@ -120,5 +134,8 @@ const styles=StyleSheet.create({
   }
 });
 
+mapStateToProps = ({idRecipe}) => ({
+  idRecipe: idRecipe,
+})
 
-export default connect(null, {addNewRecipe})(AddStepsScreen)
+export default connect(mapStateToProps, {addNewRecipe, changeThemeColor})(AddStepsScreen)
