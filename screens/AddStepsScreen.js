@@ -2,7 +2,7 @@ import React from 'react'
 import { Text, View, KeyboardAvoidingView, StyleSheet, FlatList, TextInput } from 'react-native';
 import {Button} from 'react-native-elements'
 import { connect } from 'react-redux'
-import {addNewRecipe, changeThemeColor} from '../redux/actions'
+import {addNewRecipe} from '../redux/actions'
 import { CommonActions } from '@react-navigation/native';
 
 import StepInput from '../components/StepInput'
@@ -67,7 +67,6 @@ class AddStepsScreen extends React.Component {
     const {color, ...parameters} = this.props.route.params
     const steps = this.state.steps
     const id = this.props.idRecipe
-    this.props.changeThemeColor({index: 0, color: 'crimson'})
     this.props.addNewRecipe({id: id, created: true, ...parameters, steps,})
     this.props.navigation.navigate('Home')
   }
@@ -138,4 +137,4 @@ mapStateToProps = ({idRecipe}) => ({
   idRecipe: idRecipe,
 })
 
-export default connect(mapStateToProps, {addNewRecipe, changeThemeColor})(AddStepsScreen)
+export default connect(mapStateToProps, {addNewRecipe})(AddStepsScreen)

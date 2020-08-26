@@ -1,17 +1,17 @@
 import * as React from 'react';
 import { Text, View, StyleSheet } from 'react-native';
 import Constants from 'expo-constants';
-
 import { createStackNavigator } from '@react-navigation/stack';
+import { connect } from 'react-redux'
 
 import SearchScreen from './SearchScreen'
 
 const SearchStack = createStackNavigator();
 
-export default class SearchStackScreen extends React.Component {
+class SearchStackScreen extends React.Component {
   render () {
     return (
-      <SearchStack.Navigator initialRouteName='Search' screenOptions={{headerTitleAlign: 'center', headerStyle: styles.headerStyle,}}>
+      <SearchStack.Navigator initialRouteName='Search' screenOptions={{headerTitleAlign: 'center', headerStyle: {backgroundColor: this.props.colors[1]}, headerTitleStyle: styles.headerTitleStyle}}>
         <SearchStack.Screen name='Search' component={SearchScreen} options={{headerTitle: 'SEARCH'}} />
       </SearchStack.Navigator>
     )
@@ -19,7 +19,13 @@ export default class SearchStackScreen extends React.Component {
 }
 
 const styles=StyleSheet.create({
-  headerStyle: {
-    backgroundColor: 'coral',
+  headerTitleStyle: {
+    color: 'white',
   }
 })
+
+const mapStateToProps = ({themeColors}) => ({
+  colors: themeColors,
+})
+
+export default connect(mapStateToProps)(SearchStackScreen)

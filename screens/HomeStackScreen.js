@@ -44,7 +44,7 @@ const styles=StyleSheet.create({
   }
 })
 
-mapStateToProps = ({themeColors}) => ({
+const mapStateToProps = ({themeColors}) => ({
   colors: themeColors,
 })
 
