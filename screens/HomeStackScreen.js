@@ -26,7 +26,6 @@ class HomeStackScreen extends React.Component {
           name='AddIngredients'
           component={AddIngredientsScreen}
           options={({ navigation, route }) => ({headerTitle: 'ADD NEW RECIPE', headerLeft: (props) => (<HeaderBackButton onPress={() => {navigation.navigate("AddMainInfo", route.params)}}/>),})}
-
         />
         <HomeStack.Screen
           name='AddSteps'

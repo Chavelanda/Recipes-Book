@@ -5,6 +5,9 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { connect } from 'react-redux'
 
 import SearchScreen from './SearchScreen'
+import AddMainInfoScreen from './AddMainInfoScreen'
+import AddIngredientsScreen from './AddIngredientsScreen'
+import AddStepsScreen from './AddStepsScreen'
 
 const SearchStack = createStackNavigator();
 
@@ -13,6 +16,17 @@ class SearchStackScreen extends React.Component {
     return (
       <SearchStack.Navigator initialRouteName='Search' screenOptions={{headerTitleAlign: 'center', headerStyle: {backgroundColor: this.props.colors[1]}, headerTitleStyle: styles.headerTitleStyle}}>
         <SearchStack.Screen name='Search' component={SearchScreen} options={{headerTitle: 'SEARCH'}} />
+        <SearchStack.Screen name='AddMainInfo' component={AddMainInfoScreen} options={({ navigation, route }) => ({headerTitle: route.params.title})} />
+        <SearchStack.Screen
+          name='AddIngredients'
+          component={AddIngredientsScreen}
+          options={({ navigation, route }) => ({headerTitle: route.params.title, headerLeft: (props) => (<HeaderBackButton onPress={() => {navigation.navigate("AddMainInfo", route.params)}}/>),})}
+        />
+        <SearchStack.Screen
+          name='AddSteps'
+          component={AddStepsScreen}
+          options={({ navigation, route }) => ({headerTitle: route.params.title, headerLeft: (props) => (<HeaderBackButton onPress={() => {navigation.navigate("AddIngredients", route.params)}}/>),})}
+        />
       </SearchStack.Navigator>
     )
   }

@@ -30,7 +30,7 @@ const Recipe = (props) => {
               name={`ios-star${props.saved ? '' : '-outline'}`}
               type="ionicon"
               color={props.color}
-              onPress={() => props.onStarPressed(props.id, props.created)}
+              onPress={() => props.onStarPressed(props.id, props.created, props.saved)}
             />
             {props.saved && (
               <Icon

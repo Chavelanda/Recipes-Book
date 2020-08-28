@@ -36,7 +36,6 @@ class HomeScreen extends React.Component {
   }
 
   renderItem = ({item}) => {
-
     return (
     <Recipe
       id={item.id}
