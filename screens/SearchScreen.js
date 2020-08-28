@@ -1,11 +1,13 @@
 import * as React from 'react';
-import { Text, View, StyleSheet, TextInput, KeyboardAvoidingView } from 'react-native';
+import { Text, View, StyleSheet, TextInput, KeyboardAvoidingView, FlatList } from 'react-native';
 import {Button, Icon} from 'react-native-elements'
 import { connect } from 'react-redux'
 
 import SortButtonGroup from '../components/SortButtonGroup'
+import Recipe from '../components/Recipe'
 import {compareRecipeByName, compareRecipeByTime} from '../utils/recipeUtils'
 import {addNewRecipe} from '../redux/actions'
+import {fetchRecipesByName} from '../api/api'
 
 class SearchScreen extends React.Component {
 
@@ -14,6 +16,11 @@ class SearchScreen extends React.Component {
     searchByName: true,
     index: 0,
     up: false,
+    searchInput: '',
+  }
+
+  handleSearchInputChange = (searchInput) => {
+    this.setState({searchInput})
   }
 
   buttons = [{name: 'NAME', up: false,}, {name: 'TIME', up: false}]
@@ -44,7 +51,7 @@ class SearchScreen extends React.Component {
       time={+item.time}
       title={item.title}
       image={item.image}
-      saved={() => this.isRecipeSaved(item)}
+      saved={this.isRecipeSaved(item)}
       onStarPressed={this.onStarPressed}
       onModifyPressed={this.onModifyPressed}
       onRecipePressed={this.onRecipePressed}
@@ -52,7 +59,9 @@ class SearchScreen extends React.Component {
   }
 
   isRecipeSaved = (recipe) => {
-    return this.props.savedRecipes.find((savedRecipe) => recipe.id === savedRecipe.id && recipe.created === savedRecipe.created)
+    const isSaved = this.props.savedRecipes.find((savedRecipe) => recipe.id === savedRecipe.id && recipe.created === savedRecipe.created)
+    console.log(isSaved)
+    return isSaved
   }
 
   onStarPressed = (id, created, saved) => {
@@ -82,12 +91,17 @@ class SearchScreen extends React.Component {
     this.props.navigation.navigate('MainInfo', {...recipe, color: this.props.colors[1]})
   }
 
+  onSearchButtonPressed = async () => {
+    const recipes = await fetchRecipesByName(this.state.searchInput)
+    this.setState({searchedRecipes: recipes})
+  }
+
   render () {
     return (
       <KeyboardAvoidingView style={styles.container} behaviour='height'>
         <View style={styles.searchBox} >
           <Icon name='ios-swap' type='ionicon' color={this.props.colors[1]} onPress={() => console.log('swap pressed')} reverse/>
-          <TextInput style={[styles.searchInput, {borderColor: this.props.colors[1]}]} placeholder='Search Recipe by Name'/>
+          <TextInput style={[styles.searchInput, {borderColor: this.props.colors[1]}]} placeholder='Search Recipe by Name' value={this.state.searchInput} onChangeText={this.handleSearchInputChange}/>
         </View>
         <View style={styles.sortButtonBox} >
           <SortButtonGroup buttons={this.buttons} color={this.props.colors[1]} onSortButtonPress={this.onSortButtonPress}/>
@@ -103,7 +117,7 @@ class SearchScreen extends React.Component {
         }
         </View>
         <View style={styles.searchButtonBox}>
-          <Button title='SEARCH' containerStyle={styles.searchButtonContainer} buttonStyle={{borderColor: this.props.colors[1]}} titleStyle={{color: this.props.colors[1]}} type='outline' raised/>
+          <Button title='SEARCH' containerStyle={styles.searchButtonContainer} buttonStyle={{borderColor: this.props.colors[1]}} titleStyle={{color: this.props.colors[1]}} type='outline' disabled={this.state.searchInput === '' ? true : false} onPress={this.onSearchButtonPressed} raised/>
         </View>
       </KeyboardAvoidingView>
     )
