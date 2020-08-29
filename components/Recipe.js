@@ -32,7 +32,7 @@ const Recipe = (props) => {
               color={props.color}
               onPress={() => props.onStarPressed(props.id, props.created, props.saved)}
             />
-            {props.saved && (
+            {props.home && (
               <Icon
                 name="ios-brush"
                 type="ionicon"
@@ -94,6 +94,7 @@ Recipe.propTypes = {
   title: PropTypes.string.isRequired,
   image: PropTypes.oneOfType([PropTypes.number, PropTypes.object]),
   saved: PropTypes.bool,
+  home: PropTypes.bool,
   onStarPressed: PropTypes.func,
   onModifyPressed: PropTypes.func,
   onRecipePressed: PropTypes.func,

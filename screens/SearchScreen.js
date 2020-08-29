@@ -1,12 +1,12 @@
 import * as React from 'react';
-import { Text, View, StyleSheet, TextInput, KeyboardAvoidingView, FlatList } from 'react-native';
+import { Text, View, StyleSheet, TextInput, KeyboardAvoidingView, FlatList, Alert } from 'react-native';
 import {Button, Icon} from 'react-native-elements'
 import { connect } from 'react-redux'
 
 import SortButtonGroup from '../components/SortButtonGroup'
 import Recipe from '../components/Recipe'
 import {compareRecipeByName, compareRecipeByTime} from '../utils/recipeUtils'
-import {addNewRecipe} from '../redux/actions'
+import {addNewRecipe, deleteRecipe} from '../redux/actions'
 import {fetchRecipesByName} from '../api/api'
 
 class SearchScreen extends React.Component {
@@ -52,6 +52,7 @@ class SearchScreen extends React.Component {
       title={item.title}
       image={item.image}
       saved={this.isRecipeSaved(item)}
+      home={false}
       onStarPressed={this.onStarPressed}
       onModifyPressed={this.onModifyPressed}
       onRecipePressed={this.onRecipePressed}
@@ -174,4 +175,4 @@ mapStateToProps = ({savedRecipes, themeColors}) => ({
   colors: themeColors,
 })
 
-export default connect(mapStateToProps, {addNewRecipe})(SearchScreen)
+export default connect(mapStateToProps, {addNewRecipe, deleteRecipe})(SearchScreen)

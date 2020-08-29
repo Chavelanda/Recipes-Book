@@ -67,7 +67,11 @@ class AddStepsScreen extends React.Component {
     const {color, ...parameters} = this.props.route.params
     const steps = this.state.steps
     const id = this.props.idRecipe
-    this.props.addNewRecipe({id: id, created: true, ...parameters, steps,})
+    if (parameters.created) {
+      this.props.addNewRecipe({id: id, ...parameters, steps, created: true,})
+    } else {
+      this.props.addNewRecipe({...parameters, steps, created: true, id: id,})
+    }
     this.props.navigation.navigate('Home')
   }
 

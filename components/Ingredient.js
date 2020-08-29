@@ -14,14 +14,15 @@ const Ingredient = (props) => (
 const styles=StyleSheet.create({
   ingredient: {
     flexDirection: 'row',
-    alignItems: 'center'
+    alignItems: 'center',
+    flexWrap: 'wrap',
   },
   text: {
     fontSize: 20,
   },
   textBold: {
     fontSize: 20,
-    fontWeight: 'bold'
+    fontWeight: 'bold',
   },
 })
 

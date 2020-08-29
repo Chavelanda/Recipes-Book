@@ -11,8 +11,9 @@ const Step = (props) => (
 
 const styles=StyleSheet.create({
   step: {
-    flexDirection: 'row',
-    alignItems: 'center'
+    alignItems: 'flex-start',
+    flex: 1,
+    flexWrap: 'wrap',
   },
   text: {
     fontSize: 20,

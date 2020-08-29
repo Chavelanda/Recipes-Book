@@ -45,6 +45,7 @@ class HomeScreen extends React.Component {
       title={item.title}
       image={item.image}
       saved={true}
+      home={true}
       onStarPressed={this.onStarPressed}
       onModifyPressed={this.onModifyPressed}
       onRecipePressed={this.onRecipePressed}
