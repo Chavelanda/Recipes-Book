@@ -73,7 +73,8 @@ const styles = StyleSheet.create({
   },
   textBox: {
     flexDirection: 'row',
-    alignItems: 'center'
+    alignItems: 'center',
+    flexWrap: 'wrap'
   },
   text: {
     fontSize: 20,

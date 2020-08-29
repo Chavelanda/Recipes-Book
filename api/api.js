@@ -1,5 +1,5 @@
 const apiKey = '3f192b0d09a442ae83d449f52676a042'
-const resultsReturned = 2
+const resultsReturned = 10
 
 export const fetchRecipesByName = async (name) => {
   const response = await fetch(`https://api.spoonacular.com/recipes/complexSearch?apiKey=${apiKey}&query=${name}&instructionRequired=true&addRecipeInformation=true&fillIngredients=true&number=${resultsReturned}`)

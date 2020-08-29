@@ -19,7 +19,7 @@ const Recipe = (props) => {
             <Image style={styles.image} source={props.image} />
           </View>
           <View style={styles.description}>
-            <Text style={styles.title}>{props.title}</Text>
+            <Text ellipsizeMode='tail' numberOfLines={2} style={styles.title}>{props.title}</Text>
             <Divider
               style={{ backgroundColor: props.color || 'black', width: 110 }}
             />
@@ -75,7 +75,7 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 20,
     fontWeight: 'bold',
-    textAlign: 'center'
+    textAlign: 'center',
   },
   time: {
     fontStyle: 'italic',

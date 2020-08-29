@@ -96,7 +96,7 @@ class SearchScreen extends React.Component {
           ) : (
             <View style={styles.searchButtonBox}>
               <Button
-                title='MAXIMIZE USAGE'
+                title='MAXIMIZE INGREDIENTS USAGE'
                 containerStyle={styles.searchButtonContainer}
                 buttonStyle={{borderColor: this.props.colors[1]}}
                 titleStyle={{color: this.props.colors[1]}}
@@ -105,7 +105,7 @@ class SearchScreen extends React.Component {
                 onPress={this.maximizeUsagePressed} raised
               />
               <Button
-                title='MINIMIZE EXCESS'
+                title='MINIMIZE INGREDIENTS EXCESS'
                 containerStyle={styles.searchButtonContainer}
                 buttonStyle={{borderColor: this.props.colors[1]}}
                 titleStyle={{color: this.props.colors[1]}}
@@ -146,7 +146,7 @@ const styles = StyleSheet.create({
     height: 50,
   },
   recipesBox: {
-    flex: 4,
+    flex: 5,
     backgroundColor: 'white',
   },
   noRecipesText: {
@@ -156,7 +156,7 @@ const styles = StyleSheet.create({
     padding: 30,
   },
   searchButtonBox: {
-      flex: 1,
+      flex: 2,
       flexDirection: 'row',
       alignItems: 'center',
       justifyContent: 'center',
