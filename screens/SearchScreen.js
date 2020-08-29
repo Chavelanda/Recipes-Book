@@ -1,14 +1,12 @@
 import * as React from 'react';
-import { Text, View, StyleSheet, TextInput, KeyboardAvoidingView, FlatList, Alert } from 'react-native';
+import { Text, View, StyleSheet, TextInput, KeyboardAvoidingView } from 'react-native';
 import {Button, Icon} from 'react-native-elements'
 import { connect } from 'react-redux'
 
 import SortButtonGroup from '../components/SortButtonGroup'
-import Recipe from '../components/Recipe'
 import RecipeList from '../components/RecipeList'
 import {compareRecipeByName, compareRecipeByTime} from '../utils/recipeUtils'
-import {addNewRecipe, deleteRecipe} from '../redux/actions'
-import {fetchRecipesByName} from '../api/api'
+import {fetchRecipesByName, fetchRecipesByIngredients} from '../api/api'
 
 class SearchScreen extends React.Component {
 
@@ -22,6 +20,10 @@ class SearchScreen extends React.Component {
 
   handleSearchInputChange = (searchInput) => {
     this.setState({searchInput})
+  }
+
+  swapSearchType = () => {
+    this.setState((prevState) => ({searchByName: !prevState.searchByName}))
   }
 
   buttons = [{name: 'NAME', up: false,}, {name: 'TIME', up: false}]
@@ -43,53 +45,18 @@ class SearchScreen extends React.Component {
     return sortedRecipes
   }
 
-  renderItem = ({item}) => {
-    return (
-    <Recipe
-      id={item.id}
-      created={item.created}
-      color={this.props.colors[1]}
-      time={+item.time}
-      title={item.title}
-      image={item.image}
-      saved={this.isRecipeSaved(item)}
-      home={false}
-      onStarPressed={this.onStarPressed}
-      onModifyPressed={this.onModifyPressed}
-      onRecipePressed={this.onRecipePressed}
-    />)
-  }
-
-  isRecipeSaved = (recipe) => {
-    const isSaved = this.props.savedRecipes.find((savedRecipe) => recipe.id === savedRecipe.id && recipe.created === savedRecipe.created)
-    return isSaved ? true : false
-  }
-
-  onStarPressed = (id, created, saved) => {
-    if (saved){
-      this.deleteFromSaved(id, created)
-    } else {
-      this.props.addNewRecipe(this.state.searchedRecipes.find((recipe) => recipe.id === id))
-    }
-  }
-
-  deleteFromSaved = (id, created) => {
-    let sure = false
-    Alert.alert(
-      'Sure?',
-      'If you go ahead you will delete your recipe.',
-      [{text: 'Delete it!', onPress: () => this.props.deleteRecipe({id: id, created: created}), style:'default'}, {text: 'Go back', style: 'cancel'} ],
-      {cancelable: true}
-    )
-  }
-
-  onRecipePressed = (id, created) => {
-    const recipe = this.state.searchedRecipes.find((recipe) => recipe.id === id && recipe.created === created)
-    this.props.navigation.navigate('MainInfo', {...recipe, color: this.props.colors[1]})
-  }
-
-  onSearchButtonPressed = async () => {
+  onSearchByNameButtonPressed = async () => {
     const recipes = await fetchRecipesByName(this.state.searchInput)
+    this.setState({searchedRecipes: recipes})
+  }
+
+  maximizeUsagePressed = async () => {
+    const recipes = await fetchRecipesByIngredients(this.state.searchInput, 1)
+    this.setState({searchedRecipes: recipes})
+  }
+
+  minimizeExcessPressed = async () => {
+    const recipes = await fetchRecipesByIngredients(this.state.searchInput, 2)
     this.setState({searchedRecipes: recipes})
   }
 
@@ -97,8 +64,13 @@ class SearchScreen extends React.Component {
     return (
       <KeyboardAvoidingView style={styles.container} behaviour='height'>
         <View style={styles.searchBox} >
-          <Icon name='ios-swap' type='ionicon' color={this.props.colors[1]} onPress={() => console.log('swap pressed')} reverse/>
-          <TextInput style={[styles.searchInput, {borderColor: this.props.colors[1]}]} placeholder='Search Recipe by Name' value={this.state.searchInput} onChangeText={this.handleSearchInputChange}/>
+          <Icon name='ios-swap' type='ionicon' color={this.props.colors[1]} onPress={this.swapSearchType} reverse/>
+          <TextInput
+            style={[styles.searchInput, {borderColor: this.props.colors[1]}]}
+            placeholder={this.state.searchByName ? 'Recipe\'s Name' : 'Comma separated Ingredients'}
+            value={this.state.searchInput}
+            onChangeText={this.handleSearchInputChange}
+          />
         </View>
         <View style={styles.sortButtonBox} >
           <SortButtonGroup buttons={this.buttons} color={this.props.colors[1]} onSortButtonPress={this.onSortButtonPress}/>
@@ -111,8 +83,39 @@ class SearchScreen extends React.Component {
         }
         </View>
         <View style={styles.searchButtonBox}>
-          <Button title='SEARCH' containerStyle={styles.searchButtonContainer} buttonStyle={{borderColor: this.props.colors[1]}} titleStyle={{color: this.props.colors[1]}} type='outline' disabled={this.state.searchInput === '' ? true : false} onPress={this.onSearchButtonPressed} raised/>
-        </View>
+          {this.state.searchByName ? (
+            <Button
+              title='SEARCH BY NAME'
+              containerStyle={styles.searchButtonContainer}
+              buttonStyle={{borderColor: this.props.colors[1]}}
+              titleStyle={{color: this.props.colors[1]}}
+              type='outline'
+              disabled={this.state.searchInput === '' ? true : false}
+              onPress={this.onSearchByNameButtonPressed} raised
+            />
+          ) : (
+            <View style={styles.searchButtonBox}>
+              <Button
+                title='MAXIMIZE USAGE'
+                containerStyle={styles.searchButtonContainer}
+                buttonStyle={{borderColor: this.props.colors[1]}}
+                titleStyle={{color: this.props.colors[1]}}
+                type='outline'
+                disabled={this.state.searchInput === '' ? true : false}
+                onPress={this.maximizeUsagePressed} raised
+              />
+              <Button
+                title='MINIMIZE EXCESS'
+                containerStyle={styles.searchButtonContainer}
+                buttonStyle={{borderColor: this.props.colors[1]}}
+                titleStyle={{color: this.props.colors[1]}}
+                type='outline'
+                disabled={this.state.searchInput === '' ? true : false}
+                onPress={this.minimizeExcessPressed} raised
+              />
+            </View>
+          )}
+          </View>
       </KeyboardAvoidingView>
     )
   }
@@ -143,7 +146,7 @@ const styles = StyleSheet.create({
     height: 50,
   },
   recipesBox: {
-    flex: 6,
+    flex: 4,
     backgroundColor: 'white',
   },
   noRecipesText: {
@@ -169,4 +172,4 @@ mapStateToProps = ({savedRecipes, themeColors}) => ({
   colors: themeColors,
 })
 
-export default connect(mapStateToProps, {addNewRecipe, deleteRecipe})(SearchScreen)
+export default connect(mapStateToProps)(SearchScreen)

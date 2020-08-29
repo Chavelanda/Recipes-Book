@@ -22,17 +22,6 @@ class SearchStackScreen extends React.Component {
         <SearchStack.Screen name='MainInfo' component={MainInfoScreen} options={({ navigation, route }) => ({headerTitle: route.params.title.toUpperCase(),})}/>
         <SearchStack.Screen name='Ingredients' component={IngredientsScreen} options={({ navigation, route }) => ({headerTitle: route.params.title.toUpperCase(),})}/>
         <SearchStack.Screen name='Steps' component={StepsScreen} options={({ navigation, route }) => ({headerTitle: route.params.title.toUpperCase(),})}/>
-        <SearchStack.Screen name='AddMainInfo' component={AddMainInfoScreen} options={({ navigation, route }) => ({headerTitle: route.params.title})} />
-        <SearchStack.Screen
-          name='AddIngredients'
-          component={AddIngredientsScreen}
-          options={({ navigation, route }) => ({headerTitle: route.params.title, headerLeft: (props) => (<HeaderBackButton onPress={() => {navigation.navigate("AddMainInfo", route.params)}}/>),})}
-        />
-        <SearchStack.Screen
-          name='AddSteps'
-          component={AddStepsScreen}
-          options={({ navigation, route }) => ({headerTitle: route.params.title, headerLeft: (props) => (<HeaderBackButton onPress={() => {navigation.navigate("AddIngredients", route.params)}}/>),})}
-        />
       </SearchStack.Navigator>
     )
   }

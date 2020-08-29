@@ -1,12 +1,10 @@
 import * as React from 'react';
-import { View, StyleSheet, FlatList, Text, Alert } from 'react-native';
+import { View, StyleSheet, Text } from 'react-native';
 import {Button} from 'react-native-elements'
 import { connect } from 'react-redux'
-import { deleteRecipe } from '../redux/actions'
 
 import SortButtonGroup from '../components/SortButtonGroup'
 import {compareRecipeByName, compareRecipeByTime} from '../utils/recipeUtils'
-import Recipe from '../components/Recipe'
 import RecipeList from '../components/RecipeList'
 
 class HomeScreen extends React.Component {
@@ -33,43 +31,6 @@ class HomeScreen extends React.Component {
       sortedRecipes.reverse()
     }
     return sortedRecipes
-  }
-
-  renderItem = ({item}) => {
-    return (
-    <Recipe
-      id={item.id}
-      created={item.created}
-      color={this.props.colors[0]}
-      time={+item.time}
-      title={item.title}
-      image={item.image}
-      saved={true}
-      home={true}
-      onStarPressed={this.onStarPressed}
-      onModifyPressed={this.onModifyPressed}
-      onRecipePressed={this.onRecipePressed}
-    />)
-  }
-
-//Since we are in the home it can only mean delete from saved
-  onStarPressed = (id, created) => {
-    let sure = false
-    Alert.alert(
-      'Sure?',
-      'If you go ahead you will delete your recipe.',
-      [{text: 'Delete it!', onPress: () => this.props.deleteRecipe({id: id, created: created}), style:'default'}, {text: 'Go back', style: 'cancel'} ],
-      {cancelable: true}
-    )
-  }
-
-  onModifyPressed = (id, created) => {
-    this.props.navigation.navigate('AddMainInfo', {color: this.props.colors[0], ...this.props.savedRecipes.find((recipe) => recipe.id === id && recipe.created === created)})
-  }
-
-  onRecipePressed = (id, created) => {
-    const recipe = this.props.savedRecipes.find((recipe) => recipe.id === id && recipe.created === created)
-    this.props.navigation.navigate('MainInfo', {...recipe, color: this.props.colors[0]})
   }
 
   onAddNewRecipeButtonPress = () => {
@@ -135,4 +96,4 @@ mapStateToProps = ({savedRecipes, themeColors}) => ({
   colors: themeColors,
 })
 
-export default connect(mapStateToProps, {deleteRecipe})(HomeScreen)
+export default connect(mapStateToProps)(HomeScreen)
