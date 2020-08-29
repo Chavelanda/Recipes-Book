@@ -7,7 +7,7 @@ import { deleteRecipe } from '../redux/actions'
 import SortButtonGroup from '../components/SortButtonGroup'
 import {compareRecipeByName, compareRecipeByTime} from '../utils/recipeUtils'
 import Recipe from '../components/Recipe'
-import AddMainInfoScreen from './AddMainInfoScreen'
+import RecipeList from '../components/RecipeList'
 
 class HomeScreen extends React.Component {
 
@@ -84,11 +84,8 @@ class HomeScreen extends React.Component {
         </View>
         <View style={styles.recipesBox}>
           {this.props.savedRecipes[0] ? (
-            <FlatList
-              data={this.sortRecipes(this.props.savedRecipes)}
-              renderItem={this.renderItem}
-              keyExtractor={item => `${item.id} ${item.created}`}
-            />) :
+            <RecipeList sortedRecipes={this.sortRecipes(this.props.savedRecipes)} color={this.props.colors[0]} home={true} navigation={this.props.navigation}/>
+          ) :
             (<Text style={[styles.noRecipesText, {color: this.props.colors[0]}]}>You don't have any saved recipe yet!</Text>)
           }
         </View>

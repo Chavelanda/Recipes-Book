@@ -5,6 +5,7 @@ import { connect } from 'react-redux'
 
 import SortButtonGroup from '../components/SortButtonGroup'
 import Recipe from '../components/Recipe'
+import RecipeList from '../components/RecipeList'
 import {compareRecipeByName, compareRecipeByTime} from '../utils/recipeUtils'
 import {addNewRecipe, deleteRecipe} from '../redux/actions'
 import {fetchRecipesByName} from '../api/api'
@@ -82,10 +83,6 @@ class SearchScreen extends React.Component {
     )
   }
 
-  onModifyPressed = (id, created) => {
-    this.props.navigation.navigate('AddMainInfo', {color: this.props.colors[1], ...this.state.searchedRecipes.find((recipe) => recipe.id === id && recipe.created === created)})
-  }
-
   onRecipePressed = (id, created) => {
     const recipe = this.state.searchedRecipes.find((recipe) => recipe.id === id && recipe.created === created)
     this.props.navigation.navigate('MainInfo', {...recipe, color: this.props.colors[1]})
@@ -108,11 +105,8 @@ class SearchScreen extends React.Component {
         </View>
         <View style={styles.recipesBox} >
         {this.state.searchedRecipes[0] ? (
-          <FlatList
-            data={this.sortRecipes(this.state.searchedRecipes)}
-            renderItem={this.renderItem}
-            keyExtractor={item => `${item.id} ${item.created}`}
-          />) :
+          <RecipeList sortedRecipes={this.sortRecipes(this.state.searchedRecipes)} color={this.props.colors[1]} home={false} navigation={this.props.navigation}/>
+        ) :
           (<Text style={[styles.noRecipesText, {color: this.props.colors[1]}]}>Search Recipes to have them here!</Text>)
         }
         </View>
