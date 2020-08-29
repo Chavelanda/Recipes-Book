@@ -2,7 +2,7 @@
 
 Are you going to have a dinner with your friends and you don't know what to cook? Do you hate looking into that 500 pages recipe book weighting 7.5Kg that has been in your shelf for years? Don't you like having your favourite recipes always available for you?
 
-Then you should try (nameOfTheApp), the application that holds your recipes and makes everything comfy in the preparation of your delicious dinner. 
+Then you should try Gusteaux, the application that holds your recipes and makes everything comfy in the preparation of your delicious dinner. 
 
 ## The Project
 
