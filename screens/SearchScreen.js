@@ -60,8 +60,7 @@ class SearchScreen extends React.Component {
 
   isRecipeSaved = (recipe) => {
     const isSaved = this.props.savedRecipes.find((savedRecipe) => recipe.id === savedRecipe.id && recipe.created === savedRecipe.created)
-    console.log(isSaved)
-    return isSaved
+    return isSaved ? true : false
   }
 
   onStarPressed = (id, created, saved) => {

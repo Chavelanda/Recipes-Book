@@ -16,7 +16,7 @@ const mapResultToRecipe = (result) => {
     image: {uri: result.image},
     time: result.readyInMinutes.toString(),
     ingredients: result.extendedIngredients.map(mapIngredients),
-    steps: result.analyzedInstructions.steps ? result.analyzedInstructions.steps.map(mapInstructionToSteps) : []
+    steps: result.analyzedInstructions.length > 0 ? result.analyzedInstructions[0].steps.map(mapInstructionToSteps) : []
    }
 }
 
@@ -31,7 +31,7 @@ const mapIngredients = (ingredient) => {
 
 const mapInstructionToSteps = (instruction) => {
   return {
-    id: instruction.number,
+    id: instruction.number - 1,
     description: instruction.step
   }
 }
