@@ -13,7 +13,7 @@ class OptionsStackScreen extends React.Component {
   render () {
     return (
       <OptionsStack.Navigator initialRouteName='Options' screenOptions={{headerTitleAlign: 'center', headerStyle: {backgroundColor: this.props.colors[2]}, headerTitleStyle: styles.headerTitleStyle}}>
-        <OptionsStack.Screen name='Options' component={OptionsScreen} options={{headerTitle: 'OPTIONS'}} />
+        <OptionsStack.Screen name='Options' component={OptionsScreen} options={{headerTitle: 'SETTINGS'}} />
         <OptionsStack.Screen name='Intolerances' component={IntolerancesScreen} options={{headerTitle: 'INTOLERANCES'}} />
         <OptionsStack.Screen name='ThemeColors' component={ThemeColorsScreen} options={{headerTitle: 'THEME COLORS'}} />
       </OptionsStack.Navigator>

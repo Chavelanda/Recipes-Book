@@ -69,7 +69,7 @@ const TabsScreen = (props) =>  {
                 tabBarLabel: ({ focused, color }) => {
                   return (
                     <Text style={[styles.tabBarLabel, { color: `${focused ? props.colors[2] : color}` }]}>
-                      Options
+                      Settings
                     </Text>
                   );
                 },
