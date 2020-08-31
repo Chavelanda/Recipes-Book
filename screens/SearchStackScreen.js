@@ -1,13 +1,9 @@
 import * as React from 'react';
 import { Text, View, StyleSheet } from 'react-native';
-import Constants from 'expo-constants';
 import { createStackNavigator } from '@react-navigation/stack';
 import { connect } from 'react-redux'
 
 import SearchScreen from './SearchScreen'
-import AddMainInfoScreen from './AddMainInfoScreen'
-import AddIngredientsScreen from './AddIngredientsScreen'
-import AddStepsScreen from './AddStepsScreen'
 import MainInfoScreen from './MainInfoScreen'
 import IngredientsScreen from './IngredientsScreen'
 import StepsScreen from './StepsScreen'

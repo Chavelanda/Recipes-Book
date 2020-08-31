@@ -40,7 +40,6 @@ const RecipeList = (props) => {
   }
 
   const deleteFromSaved = (id, created) => {
-    let sure = false
     Alert.alert(
       'Sure?',
       'If you go ahead you will delete your recipe.',

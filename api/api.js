@@ -1,8 +1,12 @@
 const apiKey = '3f192b0d09a442ae83d449f52676a042'
 const resultsReturned = 10
 
-export const fetchRecipesByName = async (name) => {
-  const response = await fetch(`https://api.spoonacular.com/recipes/complexSearch?apiKey=${apiKey}&query=${name}&instructionRequired=true&addRecipeInformation=true&fillIngredients=true&number=${resultsReturned}`)
+export const fetchRecipesByName = async (name, excludedIngredients, intolerances) => {
+
+  const commaSeparatedIngredients = excludedIngredients.join()
+  const commaSeparatedIntolerances = intolerances.join()
+
+  const response = await fetch(`https://api.spoonacular.com/recipes/complexSearch?apiKey=${apiKey}&query=${name}&instructionRequired=true&addRecipeInformation=true&fillIngredients=true&intolerances=${commaSeparatedIntolerances}&excludeIngredients=${commaSeparatedIngredients}&number=${resultsReturned}`)
   const {results} = await response.json()
   const recipes = results.map(mapResultToRecipe)
   return recipes

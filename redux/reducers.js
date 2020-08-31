@@ -1,6 +1,6 @@
 import {combineReducers} from 'redux'
 
-import {ADD_NEW_RECIPE, DELETE_RECIPE, CHANGE_THEME_COLOR} from './actions'
+import {ADD_NEW_RECIPE, DELETE_RECIPE, CHANGE_THEME_COLOR, ADD_INTOLERANCE, REMOVE_INTOLERANCE, ADD_INGREDIENT, REMOVE_INGREDIENT} from './actions'
 
 const isRecipePresent = (recipe) => {}
 
@@ -32,10 +32,32 @@ const colorsReducer = (state = ['crimson', 'coral', 'teal'], action) => {
   return state
 }
 
+const intolerancesReducer = (state = [], action) => {
+  if (action.type === ADD_INTOLERANCE) {
+    return [...state, action.payload]
+  } else if (action.type === REMOVE_INTOLERANCE) {
+    const newState = [...state].filter((intolerance) => intolerance !== action.payload)
+    return newState
+  }
+  return state
+}
+
+const ingredientsReducer = (state = [], action) => {
+  if (action.type === ADD_INGREDIENT) {
+    return [...state, action.payload]
+  } else if (action.type === REMOVE_INGREDIENT) {
+    const newState = [...state].filter((ingredient) => ingredient !== action.payload)
+    return newState
+  }
+  return state
+}
+
 const reducer = combineReducers({
   savedRecipes: savedRecipeReducer,
   idRecipe: recipeIdReducer,
   themeColors: colorsReducer,
+  intolerances: intolerancesReducer,
+  excludedIngredients: ingredientsReducer,
 })
 
 export default reducer

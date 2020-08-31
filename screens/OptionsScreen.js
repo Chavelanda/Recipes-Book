@@ -1,12 +1,31 @@
 import * as React from 'react';
-import { Text, View, StyleSheet } from 'react-native';
-import Constants from 'expo-constants';
+import { View, StyleSheet } from 'react-native';
+import {ListItem, Icon} from 'react-native-elements'
+import { connect } from 'react-redux'
 
-export default class OptionsScreen extends React.Component {
+class OptionsScreen extends React.Component {
+
+  options = [{title: 'Intolerances', icon: 'ios-warning', navigationScreen: 'Intolerances'}, {title: 'Theme Colors', icon: 'ios-color-palette', navigationScreen: 'ThemeColors'}]
+
+  mapOptions = (option, index) => (
+    <ListItem
+      key={index}
+      title={option.title}
+      leftIcon={{name: option.icon, type: 'ionicon', color: this.props.colors[2]}}
+      rightIcon={{name: 'ios-arrow-forward', type: 'ionicon', color: this.props.colors[2]}}
+      onPress={() => this.optionPressed(index)}
+      bottomDivider
+    />
+  )
+
+  optionPressed= (index) => {
+    this.props.navigation.navigate(this.options[index].navigationScreen)
+  }
+
   render () {
     return (
       <View style={styles.container} >
-        <Text>Options Screen</Text>
+        {this.options.map(this.mapOptions)}
       </View>
     )
   }
@@ -15,9 +34,12 @@ export default class OptionsScreen extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    paddingTop: Constants.statusBarHeight,
-    backgroundColor: '#ecf0f1',
-    padding: 8,
+    backgroundColor: 'white',
   },
 });
+
+const mapStateToProps = ({themeColors}) => ({
+  colors: themeColors,
+})
+
+export default connect(mapStateToProps)(OptionsScreen)

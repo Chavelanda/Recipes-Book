@@ -1,25 +1,34 @@
 import * as React from 'react';
 import { Text, View, StyleSheet } from 'react-native';
-import Constants from 'expo-constants';
-
 import { createStackNavigator } from '@react-navigation/stack';
+import { connect } from 'react-redux'
 
 import OptionsScreen from './OptionsScreen'
+import ThemeColorsScreen from './ThemeColorsScreen'
+import IntolerancesScreen from './IntolerancesScreen'
 
 const OptionsStack = createStackNavigator();
 
-export default class OptionsStackScreen extends React.Component {
+class OptionsStackScreen extends React.Component {
   render () {
     return (
-      <OptionsStack.Navigator initialRouteName='Options' screenOptions={{headerTitleAlign: 'center', headerStyle: styles.headerStyle,}}>
+      <OptionsStack.Navigator initialRouteName='Options' screenOptions={{headerTitleAlign: 'center', headerStyle: {backgroundColor: this.props.colors[2]}, headerTitleStyle: styles.headerTitleStyle}}>
         <OptionsStack.Screen name='Options' component={OptionsScreen} options={{headerTitle: 'OPTIONS'}} />
+        <OptionsStack.Screen name='Intolerances' component={IntolerancesScreen} options={{headerTitle: 'INTOLERANCES'}} />
+        <OptionsStack.Screen name='ThemeColors' component={ThemeColorsScreen} options={{headerTitle: 'THEME COLORS'}} />
       </OptionsStack.Navigator>
     )
   }
 }
 
 const styles=StyleSheet.create({
-  headerStyle: {
-    backgroundColor: 'teal',
+  headerTitleStyle: {
+    color: 'white',
   }
 })
+
+const mapStateToProps = ({themeColors}) => ({
+  colors: themeColors,
+})
+
+export default connect(mapStateToProps)(OptionsStackScreen)

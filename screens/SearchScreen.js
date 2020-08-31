@@ -16,6 +16,7 @@ class SearchScreen extends React.Component {
     index: 0,
     up: false,
     searchInput: '',
+    noRecipesText: 'Search Recipes to have them here!'
   }
 
   handleSearchInputChange = (searchInput) => {
@@ -45,19 +46,21 @@ class SearchScreen extends React.Component {
     return sortedRecipes
   }
 
+
   onSearchByNameButtonPressed = async () => {
-    const recipes = await fetchRecipesByName(this.state.searchInput)
-    this.setState({searchedRecipes: recipes})
+    const recipes = await fetchRecipesByName(this.state.searchInput, this.props.excludedIngredients, this.props.intolerances)
+
+    this.setState({searchedRecipes: recipes, noRecipesText: 'No Recipe found. Try again!'})
   }
 
   maximizeUsagePressed = async () => {
     const recipes = await fetchRecipesByIngredients(this.state.searchInput, 1)
-    this.setState({searchedRecipes: recipes})
+    this.setState({searchedRecipes: recipes, noRecipesText: 'No Recipe found. Try again!'})
   }
 
   minimizeExcessPressed = async () => {
     const recipes = await fetchRecipesByIngredients(this.state.searchInput, 2)
-    this.setState({searchedRecipes: recipes})
+    this.setState({searchedRecipes: recipes, noRecipesText: 'No Recipe found. Try again!'})
   }
 
   render () {
@@ -79,7 +82,7 @@ class SearchScreen extends React.Component {
         {this.state.searchedRecipes[0] ? (
           <RecipeList sortedRecipes={this.sortRecipes(this.state.searchedRecipes)} color={this.props.colors[1]} home={false} navigation={this.props.navigation}/>
         ) :
-          (<Text style={[styles.noRecipesText, {color: this.props.colors[1]}]}>Search Recipes to have them here!</Text>)
+          (<Text style={[styles.noRecipesText, {color: this.props.colors[1]}]}>{this.state.noRecipesText}</Text>)
         }
         </View>
         <View style={styles.searchButtonBox}>
@@ -167,9 +170,11 @@ const styles = StyleSheet.create({
   },
 });
 
-mapStateToProps = ({savedRecipes, themeColors}) => ({
+mapStateToProps = ({savedRecipes, themeColors, excludedIngredients, intolerances}) => ({
   savedRecipes: savedRecipes,
   colors: themeColors,
+  excludedIngredients: excludedIngredients,
+  intolerances: intolerances,
 })
 
 export default connect(mapStateToProps)(SearchScreen)
