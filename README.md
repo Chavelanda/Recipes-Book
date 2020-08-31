@@ -1,25 +1,74 @@
-# Recipes-Book
+# Gusteaux
 
 Are you going to have a dinner with your friends and you don't know what to cook? Do you hate looking into that 500 pages recipe book weighting 7.5Kg that has been in your shelf for years? Don't you like having your favourite recipes always available for you?
 
 Then you should try Gusteaux, the application that holds your recipes and makes everything comfy in the preparation of your delicious dinner. 
 
+### Home
+
+<img align='center' src=".\gusteauDocsUtils\homeScreen.png" style="zoom:55%;" /><img align='center' src="gusteauDocsUtils/modifyScreen.png" style="zoom:55%;" /><img align='center' src="gusteauDocsUtils/infoScreen.png" style="zoom:55%;" /><img align='center' src="gusteauDocsUtils/stepsScreen.png" style="zoom:55%;" />
+
+Use your Home tab to see your saved recipes! 
+
+Sort them by name or by the time you need to prepare them. 
+
+Add a custom recipe or modify an existing one.
+
+Look at the recipe, adjust the number of servings and start to cook it!
+
+### Search
+
+<img  src=".\gusteauDocsUtils\searchScreen.png" style="zoom:55%;" /><img src=".\gusteauDocsUtils\nameScreen.png" style="zoom:55%;" /><img src=".\gusteauDocsUtils\ingredientScreen.png" style="zoom:55%;" />
+
+Search the recipes you want to cook!
+
+Search them by typing the name of the recipe or insert the ingredients and find a suggested recipe. 
+
+You can search by ingredients to use as many ingredients you wrote as possible (before shopping) or to have the least number of missing ingredients (post shopping).
+
+Navigate through the searched recipes and save your favourite ones.
+
+### Settings
+
+<img align='center' src=".\gusteauDocsUtils\settingsScreen.png" style="zoom:55%;" /><img align='center' src=".\gusteauDocsUtils\intolerancesScreen.png" style="zoom:55%;" /><img align='center' src=".\gusteauDocsUtils\colorsScreen.png" style="zoom:55%;" /><img align='center' src=".\gusteauDocsUtils\colors2Screen.png" style="zoom:55%;" />
+
+Customize Gusteaux in the Settings tab!
+
+Select your intolerances and insert the ingredients you don't like. They will be avoided in the recipes found through the Search by Name mode.
+
+Choose the main color of each tab and make Gusteaux look as you prefer.
+
+### Random Recipe
+
+<img align='left' src=".\gusteauDocsUtils\randomScreen.png" style="zoom:60%;" /> 
+
+
+
+​								Out of imagination? Shake your device and Gusteaux will suggest you a recipe. 								Save it if you like it!
+
+
+
+
+
+
+
 ## The Project
 
 The goal of this project is to develop an application for searching, inserting and navigating through recipes.
 
-The recipes will be obtained using *spoonacular API*, that provides recipes together with ingredients and steps to cook them.
+The recipes will be obtained using [*spoonacular API*](https://spoonacular.com/food-api/docs), that provides recipes together with ingredients and steps to cook them.
 
-The feature that the application will provide are the following:
+The features that the application will provide are the following:
 
 - Search recipes by name
 - Search recipes by ingredients (also with exclusion)
 - Save favourite recipes
-- See steps to cook a recipe
 - Insert a new recipe
+- See recipe's infos
 - Modify saved recipes
 - Get a random recipe
-- Set allergies
+- Set intolerances or ingredients to exclude
+- Change main color of the application's tabs
 
 #### Search Recipes by Name
 
@@ -33,7 +82,7 @@ The user will be able to propose ingredients to get recipes including them. Ther
 
 The user will be able to save the recipes that he likes, so that they are shown in the Home Screen. 
 
-#### See steps to cook a Recipe
+#### See Recipe's infos
 
 When a recipe is selected instruction are shown to reproduce it. The user should be able to select the amount of servings that he'd like to cook in order to adjust the quantity of the ingredients.
 
@@ -49,6 +98,10 @@ The user should be able to modify a saved recipe changing instructions, ingredie
 
 When the chef is out of imagination, by shaking the device, a random recipe should be shown.
 
-#### Set Allergies
+#### Set Intolerances or Ingredients to exclude
 
-The user should be able to customize the application by setting its own allergies. In this way recipe containing those ingredients will be automatically avoided in the searches.
+The user should be able to customize the application by setting its own intolerances or ingredients he doesn't like. In this way recipe containing those ingredients will be automatically avoided in the search by name mode.
+
+#### Change main color of Gusteau
+
+The user should be able to change the main color of each tab.
