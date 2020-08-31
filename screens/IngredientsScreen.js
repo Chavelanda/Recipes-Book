@@ -15,7 +15,7 @@ class IngredientsScreen extends React.Component {
   renderItem = ({item}) => (<Ingredient item={item} color={this.props.route.params.color} />)
 
   onNextButtonPressed = () => {
-    props.navigation.navigate('Steps', {...this.props.route.params})
+    this.props.navigation.navigate('Steps', {...this.props.route.params})
   }
 
   createPicker = (val, index) => {

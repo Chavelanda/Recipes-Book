@@ -23,7 +23,7 @@ const recipeIdReducer = (state = 0, action) => {
   return state
 }
 
-const colorsReducer = (state = ['crimson', 'coral', 'teal'], action) => {
+const colorsReducer = (state = ['#9a080b', 'coral', 'teal'], action) => {
   if (action.type === CHANGE_THEME_COLOR){
     let newState = [...state]
     newState[action.payload.index] = action.payload.color

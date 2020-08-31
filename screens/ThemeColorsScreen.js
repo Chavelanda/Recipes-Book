@@ -18,7 +18,7 @@ const ThemeColorsScreen = (props) => {
   };
 
   const changeThemeColor = (color) => {
-    console.log('changing color of ' + indexToChange + ' to ' + color)
+    console.log(color)
     props.changeThemeColor({index: indexToChange, color: color})
     toggleOverlay()
   }
