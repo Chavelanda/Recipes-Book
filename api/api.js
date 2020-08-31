@@ -19,6 +19,16 @@ export const fetchRecipesByIngredients = async (ingredients, ranking) => {
   return recipes
 }
 
+export const fetchRandomRecipe = async (excludedIngredients, intolerances) => {
+  const commaSeparatedIngredients = excludedIngredients.join()
+  const commaSeparatedIntolerances = intolerances.join()
+
+  const response = await fetch(`https://api.spoonacular.com/recipes/complexSearch?apiKey=${apiKey}&sort=random&instructionRequired=true&addRecipeInformation=true&fillIngredients=true&intolerances=${commaSeparatedIntolerances}&excludeIngredients=${commaSeparatedIngredients}&number=1`)
+  const {results} = await response.json()
+  const recipes = results.map(mapResultToRecipe)
+  return recipes
+}
+
 
 const mapResultToRecipe = (result) => {
   return {

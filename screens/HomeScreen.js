@@ -1,17 +1,44 @@
 import * as React from 'react';
-import { View, StyleSheet, Text } from 'react-native';
-import {Button} from 'react-native-elements'
+import { View, StyleSheet, Text, Dimensions } from 'react-native';
+import {Button, Overlay} from 'react-native-elements'
 import { connect } from 'react-redux'
 
 import SortButtonGroup from '../components/SortButtonGroup'
 import {compareRecipeByName, compareRecipeByTime} from '../utils/recipeUtils'
 import RecipeList from '../components/RecipeList'
+import {ShakeEvent} from '../utils/shakeEvent'
+import {fetchRandomRecipe} from '../api/api'
 
 class HomeScreen extends React.Component {
 
   state={
     index: 0,
     up: false,
+    randomRecipe: null,
+    randomRecipeVisible: false,
+    semaphore: true,
+  }
+
+  componentDidMount() {
+    ShakeEvent.addListener(() => {
+      this.shakenDevice()
+    });
+  }
+
+  componentWillUnmount() {
+    ShakeEvent.removeListener();
+  }
+
+  shakenDevice = async () => {
+    if (!this.state.randomRecipeVisible && this.state.semaphore) {
+      this.setState({semaphore: false})
+      const recipe = await fetchRandomRecipe(this.props.excludedIngredients, this.props.intolerances)
+      this.setState({randomRecipe: recipe, randomRecipeVisible: true, semaphore: true})
+    }
+  }
+
+  toggleRandomRecipe = () =>{
+    this.setState({randomRecipeVisible: false})
   }
 
   buttons = [{name: 'NAME', up: false,}, {name: 'TIME', up: false}]
@@ -53,6 +80,11 @@ class HomeScreen extends React.Component {
         <View style={styles.addButtonBox}>
           <Button title='ADD NEW' type='outline' buttonStyle={[styles.buttonContainer, {borderColor: this.props.colors[0]}]} titleStyle={[styles.buttonContainer, {color: this.props.colors[0]}]} onPress={this.onAddNewRecipeButtonPress} raised/>
         </View>
+
+        <Overlay overlayStyle={styles.overlayStyle} isVisible={this.state.randomRecipeVisible} onBackdropPress={this.toggleRandomRecipe}>
+          <RecipeList sortedRecipes={this.state.randomRecipe} color={this.props.colors[0]} home={false} navigation={this.props.navigation} />
+        </Overlay>
+
       </View>
     )
   }
@@ -87,13 +119,19 @@ const styles = StyleSheet.create({
   buttonContainer: {
     borderColor: 'black',
     color: 'black',
+  },
+  overlayStyle: {
+    width: Dimensions.get('window').width - 16,
+    height: 170,
   }
 });
 
 
-mapStateToProps = ({savedRecipes, themeColors}) => ({
+mapStateToProps = ({savedRecipes, themeColors, excludedIngredients, intolerances}) => ({
   savedRecipes: savedRecipes,
   colors: themeColors,
+  excludedIngredients: excludedIngredients,
+  intolerances: intolerances,
 })
 
 export default connect(mapStateToProps)(HomeScreen)

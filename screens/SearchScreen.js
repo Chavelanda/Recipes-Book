@@ -8,6 +8,7 @@ import RecipeList from '../components/RecipeList'
 import {compareRecipeByName, compareRecipeByTime} from '../utils/recipeUtils'
 import {fetchRecipesByName, fetchRecipesByIngredients} from '../api/api'
 
+
 class SearchScreen extends React.Component {
 
   state = {
@@ -16,7 +17,7 @@ class SearchScreen extends React.Component {
     index: 0,
     up: false,
     searchInput: '',
-    noRecipesText: 'Search Recipes to have them here!'
+    noRecipesText: 'Search Recipes to have them here!',
   }
 
   handleSearchInputChange = (searchInput) => {
