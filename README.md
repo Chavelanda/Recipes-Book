@@ -6,7 +6,7 @@ Then you should try Gusteaux, the application that holds your recipes and makes 
 
 ### Home
 
-<img align='center' src=".\gusteauDocsUtils\homeScreen.png" style="zoom:55%;" /><img align='center' src="gusteauDocsUtils/modifyScreen.png" style="zoom:55%;" /><img align='center' src="gusteauDocsUtils/infoScreen.png" style="zoom:55%;" /><img align='center' src="gusteauDocsUtils/stepsScreen.png" style="zoom:55%;" />
+<img align='center' src=".\gusteauDocsUtils\homeScreen.png" width=150 /><img align='center' src="gusteauDocsUtils/modifyScreen.png" width=150 /><img align='center' src="gusteauDocsUtils/infoScreen.png" width=150 /><img align='center' src="gusteauDocsUtils/stepsScreen.png" width=150 />
 
 Use your Home tab to see your saved recipes! 
 
@@ -18,7 +18,7 @@ Look at the recipe, adjust the number of servings and start to cook it!
 
 ### Search
 
-<img  src=".\gusteauDocsUtils\searchScreen.png" style="zoom:55%;" /><img src=".\gusteauDocsUtils\nameScreen.png" style="zoom:55%;" /><img src=".\gusteauDocsUtils\ingredientScreen.png" style="zoom:55%;" />
+<img  src=".\gusteauDocsUtils\searchScreen.png" width=150 /><img src=".\gusteauDocsUtils\nameScreen.png" width=150 /><img src=".\gusteauDocsUtils\ingredientScreen.png" width=150 />
 
 Search the recipes you want to cook!
 
@@ -30,7 +30,7 @@ Navigate through the searched recipes and save your favourite ones.
 
 ### Settings
 
-<img align='center' src=".\gusteauDocsUtils\settingsScreen.png" style="zoom:55%;" /><img align='center' src=".\gusteauDocsUtils\intolerancesScreen.png" style="zoom:55%;" /><img align='center' src=".\gusteauDocsUtils\colorsScreen.png" style="zoom:55%;" /><img align='center' src=".\gusteauDocsUtils\colors2Screen.png" style="zoom:55%;" />
+<img align='center' src=".\gusteauDocsUtils\settingsScreen.png" width=150 /><img align='center' src=".\gusteauDocsUtils\intolerancesScreen.png" width=150 /><img align='center' src=".\gusteauDocsUtils\colorsScreen.png" width=150 /><img align='center' src=".\gusteauDocsUtils\colors2Screen.png" width=150 />
 
 Customize Gusteaux in the Settings tab!
 
@@ -40,11 +40,11 @@ Choose the main color of each tab and make Gusteaux look as you prefer.
 
 ### Random Recipe
 
-<img align='left' src=".\gusteauDocsUtils\randomScreen.png" style="zoom:60%;" /> 
+<img align='left' src=".\gusteauDocsUtils\randomScreen.png" width=150 /> 
 
 
 
-​								Out of imagination? Shake your device and Gusteaux will suggest you a recipe. 								Save it if you like it!
+​							Out of imagination? Shake your device and Gusteaux will suggest you a recipe. 							Save it if you like it!
 
 
 
