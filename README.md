@@ -40,18 +40,9 @@ Choose the main color of each tab and make Gusteaux look as you prefer.
 
 ### Random Recipe
 
-<img align='left' src=".\gusteauDocsUtils\randomScreen.png" width=150 /> 
+<img align="center" src=".\gusteauDocsUtils\randomScreen.png" width=150 /> 
 
-
-
-​							Out of imagination? Shake your device and Gusteaux will suggest you a recipe. 							Save it if you like it!
-
-
-
-
-
-
-<br/>
+Out of imagination? Shake your device and Gusteaux will suggest you a recipe. Save it if you like it!
 
 ## The Project
 
