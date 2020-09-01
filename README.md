@@ -24,7 +24,7 @@ Search the recipes you want to cook!
 
 Search them by typing the name of the recipe or insert the ingredients and find a suggested recipe. 
 
-You can search by ingredients to use as many ingredients you wrote as possible (before shopping) or to have the least number of missing ingredients (post shopping).
+You can search by ingredients to use as many ingredients you wrote as possible or to have the least number of missing ingredients.
 
 Navigate through the searched recipes and save your favourite ones.
 
