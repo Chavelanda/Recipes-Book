@@ -1,12 +1,12 @@
 {
   "expo": {
-    "name": "Recipes-Book",
-    "slug": "Recipes-Book",
+    "name": "Gusteaux",
+    "slug": "Gusteaux",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/gusteauxIcon.png",
     "splash": {
-      "image": "./assets/gusteau.png",
+      "image": "./assets/gusteaux.png",
       "resizeMode": "cover",
       "backgroundColor": "#9a080b"
     },
@@ -21,6 +21,11 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "privacy": "unlisted",
+    "android": {
+      "package": "it.chavelanda.gusteaux",
+      "versionCode": 1
     }
   }
 }

@@ -1,5 +1,5 @@
 import React from 'react'
-import { Text, View, StyleSheet, FlatList, Picker } from 'react-native';
+import { Text, View, StyleSheet, FlatList, Picker, Platform } from 'react-native';
 import {Button, Icon} from 'react-native-elements'
 //import {Picker} from '@react-native-community/picker'
 
@@ -29,8 +29,12 @@ class IngredientsScreen extends React.Component {
   }
 
   remapQuantities = (ingredient) => {
-    const newAmount = ingredient.amount / +this.props.route.params.servings * this.state.selectedValue
-    return {...ingredient, amount: newAmount}
+    if (+ingredient.amount) {
+      const newAmount = ingredient.amount / +this.props.route.params.servings * this.state.selectedValue
+      return {...ingredient, amount: newAmount}
+    } else {
+      return ingredient
+    }
   }
 
   render() {
@@ -74,14 +78,16 @@ const styles=StyleSheet.create({
   servings: {
     flex: 1,
     flexDirection: 'row',
+    alignItems: 'center'
   },
   text: {
     fontSize: 20,
     fontWeight: 'bold',
   },
   picker: {
-    height: 30,
+    height: 50,
     width: 90,
+    marginBottom: Platform.OS === 'ios' ? 160 : 0
   },
   ingredients: {
     height: 350,

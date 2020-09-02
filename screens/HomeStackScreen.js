@@ -16,7 +16,7 @@ const HomeStack = createStackNavigator();
 class HomeStackScreen extends React.Component {
   render () {
     return (
-      <HomeStack.Navigator initialRouteName='Home' screenOptions={{headerTitleAlign: 'center', headerStyle: {backgroundColor: this.props.colors[0]}, headerTitleStyle: styles.headerTitleStyle}}>
+      <HomeStack.Navigator initialRouteName='Home' screenOptions={{headerTitleAlign: 'center', headerStyle: {backgroundColor: this.props.colors[0]}, headerTitleStyle: styles.headerTitleStyle, headerTintColor: 'white'}}>
         <HomeStack.Screen name='Home' component={HomeScreen} options={{headerTitle: 'HOME'}}/>
         <HomeStack.Screen name='MainInfo' component={MainInfoScreen} options={({ navigation, route }) => ({headerTitle: route.params.title.toUpperCase(),})}/>
         <HomeStack.Screen name='Ingredients' component={IngredientsScreen} options={({ navigation, route }) => ({headerTitle: route.params.title.toUpperCase(),})}/>

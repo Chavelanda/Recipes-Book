@@ -72,7 +72,7 @@ export default class AddIngredientsScreen extends React.Component {
   }
 
   isIngredientValid = (ingredient) => {
-    return (+ingredient.amount >= 0 && ingredient.ingredient !== '')
+    return (ingredient.ingredient !== '')
   }
 
   onNextButtonPressed = () => {

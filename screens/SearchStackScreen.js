@@ -13,7 +13,7 @@ const SearchStack = createStackNavigator();
 class SearchStackScreen extends React.Component {
   render () {
     return (
-      <SearchStack.Navigator initialRouteName='Search' screenOptions={{headerTitleAlign: 'center', headerStyle: {backgroundColor: this.props.colors[1]}, headerTitleStyle: styles.headerTitleStyle}}>
+      <SearchStack.Navigator initialRouteName='Search' screenOptions={{headerTitleAlign: 'center', headerStyle: {backgroundColor: this.props.colors[1]}, headerTitleStyle: styles.headerTitleStyle, headerTintColor: 'white'}}>
         <SearchStack.Screen name='Search' component={SearchScreen} options={{headerTitle: 'SEARCH'}} />
         <SearchStack.Screen name='MainInfo' component={MainInfoScreen} options={({ navigation, route }) => ({headerTitle: route.params.title.toUpperCase(),})}/>
         <SearchStack.Screen name='Ingredients' component={IngredientsScreen} options={({ navigation, route }) => ({headerTitle: route.params.title.toUpperCase(),})}/>
